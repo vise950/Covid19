@@ -1,3 +1,4 @@
+import 'package:covid19/utils/util.dart';
 import 'package:flutter/foundation.dart';
 
 class Covid {
@@ -30,7 +31,7 @@ class Covid {
 
   factory Covid.fromJson(Map<String, dynamic> json) {
     return Covid(
-      data: json['data'],
+      data: DateUtil.formattedDate(json['data']),
       ricoveratiConSintomi: json['ricoverati_con_sintomi'],
       terapiaIntensiva: json['terapia_intensiva'],
       totaleOspedalizzati: json['totale_ospedalizzati'],
