@@ -2,18 +2,18 @@ import 'package:covid19/utils/util.dart';
 import 'package:flutter/foundation.dart';
 
 class Covid {
-  final String data;
-  final int ricoveratiConSintomi;
-  final int terapiaIntensiva;
-  final int totaleOspedalizzati;
-  final int isolamentoDomiciliare;
-  final int totalePositivi;
-  final int variazionePositivi;
-  final int nuoviPositivi;
-  final int dimessiGuariti;
-  final int deceduti;
-  final int totaleCasi;
-  final int tamponi;
+  String data;
+  int ricoveratiConSintomi;
+  int terapiaIntensiva;
+  int totaleOspedalizzati;
+  int isolamentoDomiciliare;
+  int totalePositivi;
+  int variazionePositivi;
+  int nuoviPositivi;
+  int dimessiGuariti;
+  int deceduti;
+  int totaleCasi;
+  int tamponi;
 
   Covid(
       {@required this.data,
@@ -29,20 +29,56 @@ class Covid {
       @required this.totaleCasi,
       @required this.tamponi});
 
-  factory Covid.fromJson(Map<String, dynamic> json) {
+  // used for parse json response
+  factory Covid.fromJson(Map<String, dynamic> map) {
     return Covid(
-      data: DateUtil.formattedDate(json['data']),
-      ricoveratiConSintomi: json['ricoverati_con_sintomi'],
-      terapiaIntensiva: json['terapia_intensiva'],
-      totaleOspedalizzati: json['totale_ospedalizzati'],
-      isolamentoDomiciliare: json['isolamento_domiciliare'],
-      totalePositivi: json['totale_positivi'],
-      variazionePositivi: json['variazione_totale_positivi'],
-      nuoviPositivi: json['nuovi_positivi'],
-      dimessiGuariti: json['dimessi_guariti'],
-      deceduti: json['deceduti'],
-      totaleCasi: json['totale_casi'],
-      tamponi: json['tamponi'],
+      data: map['data'],
+      ricoveratiConSintomi: map['ricoverati_con_sintomi'],
+      terapiaIntensiva: map['terapia_intensiva'],
+      totaleOspedalizzati: map['totale_ospedalizzati'],
+      isolamentoDomiciliare: map['isolamento_domiciliare'],
+      totalePositivi: map['totale_positivi'],
+      variazionePositivi: map['variazione_totale_positivi'],
+      nuoviPositivi: map['nuovi_positivi'],
+      dimessiGuariti: map['dimessi_guariti'],
+      deceduti: map['deceduti'],
+      totaleCasi: map['totale_casi'],
+      tamponi: map['tamponi'],
     );
+  }
+
+  // map used for db read or write
+  factory Covid.fromMap(Map<String, dynamic> map) {
+    return Covid(
+      data: map['data'],
+      ricoveratiConSintomi: map['ricoverati_con_sintomi'],
+      terapiaIntensiva: map['terapia_intensiva'],
+      totaleOspedalizzati: map['totale_ospedalizzati'],
+      isolamentoDomiciliare: map['isolamento_domiciliare'],
+      totalePositivi: map['totale_positivi'],
+      variazionePositivi: map['variazione_totale_positivi'],
+      nuoviPositivi: map['nuovi_positivi'],
+      dimessiGuariti: map['dimessi_guariti'],
+      deceduti: map['deceduti'],
+      totaleCasi: map['totale_casi'],
+      tamponi: map['tamponi'],
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'data': data,
+      'ricoverati_con_sintomi': ricoveratiConSintomi,
+      'terapia_intensiva': terapiaIntensiva,
+      'totale_ospedalizzati': totaleOspedalizzati,
+      'isolamento_domiciliare': isolamentoDomiciliare,
+      'totale_positivi': totalePositivi,
+      'variazione_totale_positivi': variazionePositivi,
+      'nuovi_positivi': nuoviPositivi,
+      'dimessi_guariti': dimessiGuariti,
+      'deceduti': deceduti,
+      'totale_casi': totaleCasi,
+      'tamponi': tamponi,
+    };
   }
 }

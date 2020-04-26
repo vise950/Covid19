@@ -1,6 +1,7 @@
 import 'package:covid19/page/all.dart';
 import 'package:covid19/page/charts.dart';
 import 'package:covid19/page/today.dart';
+import 'package:covid19/database/database_helper.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -16,7 +17,17 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar _appBar = AppBar(title: Text("Covid 19"));
+    AppBar _appBar = AppBar(
+      title: Text("Covid 19"),
+      actions: <Widget>[
+        GestureDetector(
+          onTap: () {
+            DatabaseHelper.instance.deleteAll();
+          },
+          child: Icon(Icons.delete),
+        )
+      ],
+    );
     BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
       BottomNavigationBarItem(
         icon: new Icon(Icons.today),
@@ -37,6 +48,12 @@ class _HomeState extends State<Home> {
       body: _children.elementAt(_selectedIndex),
       bottomNavigationBar: _bottomNavigationBar,
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    DatabaseHelper.instance.close();
   }
 
   void _onItemTapped(int index) {

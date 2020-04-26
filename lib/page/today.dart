@@ -1,5 +1,6 @@
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/network/repository.dart';
+import 'package:covid19/repository/remote_repository.dart';
+import 'package:covid19/repository/repository.dart';
 import 'package:flutter/material.dart';
 
 class Today extends StatefulWidget {

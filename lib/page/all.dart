@@ -1,5 +1,7 @@
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/network/repository.dart';
+import 'package:covid19/repository/remote_repository.dart';
+import 'package:covid19/repository/repository.dart';
+import 'package:covid19/utils/util.dart';
 import 'package:flutter/material.dart';
 
 class All extends StatefulWidget {
@@ -54,7 +56,7 @@ class _ListState extends State<All> {
 
   Column _getListItem(Covid covid) {
     return Column(children: <Widget>[
-      Text('Data: ${covid.data}'),
+      Text('Data: ${covid.data.formatDate}'),
       Text('Casi totali: ${covid.totaleCasi}'),
       Text('Totale positivi: ${covid.totalePositivi}'),
       Text('Totale deceduti: ${covid.deceduti}'),

@@ -1,6 +1,6 @@
-import 'package:covid19/model/chartData.dart';
+import 'package:covid19/model/chart_data.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/network/repository.dart';
+import 'package:covid19/repository/remote_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -17,7 +17,7 @@ class _ChartsState extends State<Charts> {
   @override
   void initState() {
     super.initState();
-    _allData = Repository.getAllData();
+    _allData = RemoteRepository.getAllData();
   }
 
   @override
