@@ -4,7 +4,6 @@ import 'package:connectivity/connectivity.dart';
 import 'package:covid19/model/covid.dart';
 import 'package:covid19/utils/PreferencesHelper.dart';
 import 'package:intl/intl.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Util {
 

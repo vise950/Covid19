@@ -1,5 +1,4 @@
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/repository/remote_repository.dart';
 import 'package:covid19/repository/repository.dart';
 import 'package:covid19/utils/util.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class _ListState extends State<All> {
   @override
   Widget build(BuildContext context) {
     Center _body = Center(child: _retrieveData());
-//    Container _body = Container(color: Colors.green);
     return Scaffold(body: _body);
   }
 
@@ -36,7 +34,6 @@ class _ListState extends State<All> {
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
-        // By default, show a loading spinner.
         return CircularProgressIndicator();
       },
     );

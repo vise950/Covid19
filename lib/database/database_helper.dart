@@ -1,5 +1,4 @@
 import 'package:covid19/model/covid.dart';
-import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -84,7 +83,7 @@ class DatabaseHelper {
     });
   }
 
-  Future<Covid> queryRecent() async {
+  Future<Covid> queryFirst() async {
     Database db = await database;
     var res = await db.query(_tableName, orderBy: 'data DESC', limit: 1);
     return Covid.fromMap(res.first);

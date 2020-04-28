@@ -20,12 +20,14 @@ class _HomeState extends State<Home> {
     AppBar _appBar = AppBar(
       title: Text("Covid 19"),
       actions: <Widget>[
-        GestureDetector(
-          onTap: () {
-            DatabaseHelper.instance.deleteAll();
-          },
-          child: Icon(Icons.delete),
-        )
+        Padding(
+            padding: EdgeInsets.only(right: 16.0),
+            child: GestureDetector(
+              onTap: () {
+                //todo add refresh
+              },
+              child: Icon(Icons.refresh),
+            ))
       ],
     );
     BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
