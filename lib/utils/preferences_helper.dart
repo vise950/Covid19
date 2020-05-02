@@ -5,7 +5,7 @@ class PreferencesHelper {
 
   static Future<DateTime> getLastUpdate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return DateTime.fromMillisecondsSinceEpoch(prefs.getInt(_LAST_UPDATE));
+    return DateTime.fromMillisecondsSinceEpoch(prefs.getInt(_LAST_UPDATE) ?? 0);
   }
 
   static setLastUpdate() async {

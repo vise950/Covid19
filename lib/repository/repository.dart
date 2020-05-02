@@ -1,7 +1,7 @@
 import 'package:covid19/model/covid.dart';
 import 'package:covid19/repository/local_repository.dart';
 import 'package:covid19/repository/remote_repository.dart';
-import 'package:covid19/utils/PreferencesHelper.dart';
+import 'package:covid19/utils/preferences_helper.dart';
 import 'package:covid19/utils/util.dart';
 
 class Repository {
@@ -19,6 +19,7 @@ class Repository {
   static Future<List<Covid>> getAllData() async {
     var isConnected = await Util.isConnected();
     var updateNeeded = await Util.refreshNeeded();
+    //fixme updateNeeded always false perche modificato da getDailyData
     if (isConnected && updateNeeded) {
       PreferencesHelper.setLastUpdate();
       return RemoteRepository.getAllData();

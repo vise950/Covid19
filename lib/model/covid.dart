@@ -1,6 +1,8 @@
+import 'package:covid19/utils/util.dart';
 import 'package:flutter/foundation.dart';
 
 class Covid {
+  int id;
   String data;
   int ricoveratiConSintomi;
   int terapiaIntensiva;
@@ -15,7 +17,8 @@ class Covid {
   int tamponi;
 
   Covid(
-      {@required this.data,
+      {@required this.id,
+      @required this.data,
       @required this.ricoveratiConSintomi,
       @required this.terapiaIntensiva,
       @required this.totaleOspedalizzati,
@@ -31,6 +34,7 @@ class Covid {
   // used for parse json response
   factory Covid.fromJson(Map<String, dynamic> map) {
     return Covid(
+      id: map['data'].toString().toID,
       data: map['data'],
       ricoveratiConSintomi: map['ricoverati_con_sintomi'],
       terapiaIntensiva: map['terapia_intensiva'],
@@ -66,6 +70,7 @@ class Covid {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
+      'id': id,
       'data': data,
       'ricoverati_con_sintomi': ricoveratiConSintomi,
       'terapia_intensiva': terapiaIntensiva,

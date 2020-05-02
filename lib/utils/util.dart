@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/utils/PreferencesHelper.dart';
+import 'package:covid19/utils/preferences_helper.dart';
 import 'package:intl/intl.dart';
 
 class Util {
-
   static List<Covid> parseData(String responseBody) {
     final data = json.decode(responseBody).cast<Map<String, dynamic>>();
     return data.map<Covid>((json) => Covid.fromJson(json)).toList();
@@ -42,11 +41,20 @@ extension ListExtension on List<dynamic> {
 
 extension StringExtension on String {
   static const DATE_FORMAT = 'dd/MM/yyyy';
+  static const DATE_FORMAT_FOR_ID = 'yyyyMMdd';
 
   get formatDate {
     if (this != null) {
       DateTime _dateTime = DateTime.parse(this);
       return DateFormat(DATE_FORMAT).format(_dateTime);
+    }
+  }
+
+  get toID {
+    if (this != null) {
+      DateTime _dateTime = DateTime.parse(this);
+      var id = DateFormat(DATE_FORMAT_FOR_ID).format(_dateTime);
+      return int.tryParse(id);
     }
   }
 }

@@ -32,6 +32,7 @@ class DatabaseHelper {
     await db.transaction((txn) async {
       await txn.execute('''
           CREATE TABLE $_tableName (
+            id INTEGER PRIMARY KEY,
             data TEXT NOT NULL,
             ricoverati_con_sintomi INTEGER NOT NULL,
             terapia_intensiva INTEGER NOT NULL,
@@ -77,8 +78,8 @@ class DatabaseHelper {
     Database db = await database;
     await db.transaction((txn) async {
       await txn.update(_tableName, row.toMap(),
-          where: 'data = ?',
-          whereArgs: [row.data],
+          where: 'id = ?',
+          whereArgs: [row.id],
           conflictAlgorithm: ConflictAlgorithm.replace);
     });
   }

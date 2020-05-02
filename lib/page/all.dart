@@ -30,7 +30,7 @@ class _ListState extends State<All> {
       future: _allData,
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return _getAllDataBody(snapshot.data.reversed.toList());
+          return _getAllDataBody(snapshot.data.reverse());
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
