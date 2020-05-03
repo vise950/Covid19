@@ -10,7 +10,8 @@ class Repository {
     var updateNeeded = await Util.refreshNeeded();
     if (isConnected && updateNeeded) {
       PreferencesHelper.setLastUpdate();
-      return RemoteRepository.getDailyData();
+      var data = await RemoteRepository.getAllData();
+      return data.last;
     } else {
       return LocalRepository.getDailyData();
     }
@@ -19,7 +20,6 @@ class Repository {
   static Future<List<Covid>> getAllData() async {
     var isConnected = await Util.isConnected();
     var updateNeeded = await Util.refreshNeeded();
-    //fixme updateNeeded always false perche modificato da getDailyData
     if (isConnected && updateNeeded) {
       PreferencesHelper.setLastUpdate();
       return RemoteRepository.getAllData();

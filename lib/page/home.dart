@@ -17,19 +17,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    AppBar _appBar = AppBar(
-      title: Text("Covid 19"),
-      actions: <Widget>[
-        Padding(
-            padding: EdgeInsets.only(right: 16.0),
-            child: GestureDetector(
-              onTap: () {
-                //todo add refresh
-              },
-              child: Icon(Icons.refresh),
-            ))
-      ],
-    );
+    AppBar _appBar = AppBar(title: Text("Covid 19"));
     BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
       BottomNavigationBarItem(
         icon: new Icon(Icons.today),

@@ -1,6 +1,6 @@
 import 'package:covid19/model/chart_data.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/repository/remote_repository.dart';
+import 'package:covid19/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
@@ -17,7 +17,7 @@ class _ChartsState extends State<Charts> {
   @override
   void initState() {
     super.initState();
-    _allData = RemoteRepository.getAllData();
+    _allData = Repository.getAllData();
   }
 
   @override
@@ -33,7 +33,6 @@ class _ChartsState extends State<Charts> {
         if (snapshot.hasData) {
           var series = _createChartData(snapshot.data);
           return _getChart(series);
-//          return _getAllDataBody(snapshot.data.reversed.toList());
         } else if (snapshot.hasError) {
           return Text("${snapshot.error}");
         }
