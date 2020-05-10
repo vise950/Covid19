@@ -45,88 +45,53 @@ class _ListState extends State<All> {
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          child: Center(child: _getItem(data[index])),
+          child: Center(child: _getItemList(data[index])),
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 
-  Widget _getItem(Covid covid) {
+  Widget _getItemList(Covid covid) {
     return ExpandablePanel(
-        header: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              covid.data.formatDate(StringExtension.DATE_FORMAT_TEXT),
+        header: _getHeader(covid), expanded: _getContent(covid));
+  }
+
+  Widget _getHeader(Covid covid) {
+    return Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Text(
+          covid.data.formatDate(StringExtension.DATE_FORMAT_TEXT),
+          style: TextStyle(
+              color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
+        ));
+  }
+
+  Widget _getContent(Covid covid) {
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _getRow("Casi totali: ", covid.totaleCasi, Colors.blueGrey),
+          _getRow("Totale positivi: ", covid.totalePositivi, Colors.blue),
+          _getRow("Totale guariti: ", covid.dimessiGuariti, Colors.green),
+          _getRow("Totale deceduti: ", covid.deceduti, Colors.red),
+        ]);
+  }
+
+  Widget _getRow(String label, dynamic data, Color color) {
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+      child: RichText(
+          text: TextSpan(
+              text: "$label",
               style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
+                  color: Colors.black87,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
-            )),
-        expanded: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                child: RichText(
-                    text: TextSpan(
-                        text: 'Casi totali: ',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '${covid.totaleCasi}',
-                          style:
-                              TextStyle(color: Colors.blueGrey, fontSize: 16))
-                    ])),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                child: RichText(
-                    text: TextSpan(
-                        text: 'Totale positivi: ',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '${covid.totalePositivi}',
-                          style: TextStyle(color: Colors.blue, fontSize: 16))
-                    ])),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                child: RichText(
-                    text: TextSpan(
-                        text: 'Totale guariti: ',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '${covid.dimessiGuariti}',
-                          style: TextStyle(color: Colors.green, fontSize: 16))
-                    ])),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
-                child: RichText(
-                    text: TextSpan(
-                        text: 'Totale deceduti: ',
-                        style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '${covid.deceduti}',
-                          style: TextStyle(color: Colors.red, fontSize: 16))
-                    ])),
-              )
-            ]));
+              children: <TextSpan>[
+            TextSpan(
+                text: '$data', style: TextStyle(color: color, fontSize: 16))
+          ])),
+    );
   }
 }

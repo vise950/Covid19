@@ -56,6 +56,7 @@ class Covid {
   // map used for db read or write
   factory Covid.fromMap(Map<String, dynamic> map) {
     return Covid(
+      id: null,
       data: map['data'],
       ricoveratiConSintomi: map['ricoverati_con_sintomi'],
       terapiaIntensiva: map['terapia_intensiva'],
