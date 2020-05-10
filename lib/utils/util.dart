@@ -41,11 +41,13 @@ extension ListExtension on List<dynamic> {
 extension StringExtension on String {
   static const DATE_FORMAT = 'dd/MM/yyyy';
   static const DATE_FORMAT_FOR_ID = 'yyyyMMdd';
+  static const DATE_FORMAT_TEXT = 'EEEE d MMMM yyyy';
+  static const DATE_FORMAT_WITH_HOUR = 'dd/MM/yyyy HH:mm';
 
-  get formatDate {
+  formatDate(String pattern) {
     if (this != null) {
       DateTime _dateTime = DateTime.parse(this);
-      return DateFormat(DATE_FORMAT).format(_dateTime);
+      return DateFormat(pattern).format(_dateTime);
     }
   }
 

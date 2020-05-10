@@ -43,59 +43,59 @@ class _ChartsState extends State<Charts> {
   }
 
   List<charts.Series<ChartData, int>> _createChartData(List<Covid> data) {
-    List<ChartData> _positivi = new List();
-    List<ChartData> _deceduti = new List();
-    List<ChartData> _guariti = new List();
     List<ChartData> _totali = new List();
+    List<ChartData> _positivi = new List();
+    List<ChartData> _guariti = new List();
+    List<ChartData> _deceduti = new List();
 
-    charts.Series<ChartData, int> _positiviSeries;
-    charts.Series<ChartData, int> _decedutiSeries;
-    charts.Series<ChartData, int> _guaritiSeries;
     charts.Series<ChartData, int> _totaliSeries;
+    charts.Series<ChartData, int> _positiviSeries;
+    charts.Series<ChartData, int> _guaritiSeries;
+    charts.Series<ChartData, int> _decedutiSeries;
 
     data.asMap().forEach((index, value) => {
+          _totali.add(ChartData(index, value.totaleCasi)),
           _positivi.add(ChartData(index, value.totalePositivi)),
-          _deceduti.add(ChartData(index, value.deceduti)),
           _guariti.add(ChartData(index, value.dimessiGuariti)),
-          _totali.add(ChartData(index, value.totaleCasi))
+          _deceduti.add(ChartData(index, value.deceduti))
         });
-
-    _positiviSeries = new charts.Series<ChartData, int>(
-      id: 'Positivi',
-      colorFn: (_, __) => charts.MaterialPalette.blue.shadeDefault,
-      domainFn: (ChartData data, _) => data.day,
-      measureFn: (ChartData data, _) => data.value,
-      data: _positivi,
-    );
-
-    _decedutiSeries = new charts.Series<ChartData, int>(
-      id: 'Deceduti',
-      colorFn: (_, __) => charts.MaterialPalette.red.shadeDefault,
-      domainFn: (ChartData data, _) => data.day,
-      measureFn: (ChartData data, _) => data.value,
-      data: _deceduti,
-    );
-
-    _guaritiSeries = new charts.Series<ChartData, int>(
-      id: 'Guariti',
-      colorFn: (_, __) => charts.MaterialPalette.green.shadeDefault,
-      domainFn: (ChartData data, _) => data.day,
-      measureFn: (ChartData data, _) => data.value,
-      data: _guariti,
-    );
 
     _totaliSeries = new charts.Series<ChartData, int>(
       id: 'Totali',
-      colorFn: (_, __) => charts.MaterialPalette.gray.shadeDefault,
+      colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blueGrey),
       domainFn: (ChartData data, _) => data.day,
       measureFn: (ChartData data, _) => data.value,
       data: _totali,
     );
 
-    return [_positiviSeries, _decedutiSeries, _guaritiSeries, _totaliSeries];
+    _positiviSeries = new charts.Series<ChartData, int>(
+      id: 'Positivi',
+      colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.blue),
+      domainFn: (ChartData data, _) => data.day,
+      measureFn: (ChartData data, _) => data.value,
+      data: _positivi,
+    );
+
+    _guaritiSeries = new charts.Series<ChartData, int>(
+      id: 'Guariti',
+      colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.green),
+      domainFn: (ChartData data, _) => data.day,
+      measureFn: (ChartData data, _) => data.value,
+      data: _guariti,
+    );
+
+    _decedutiSeries = new charts.Series<ChartData, int>(
+      id: 'Deceduti',
+      colorFn: (_, __) => charts.ColorUtil.fromDartColor(Colors.red),
+      domainFn: (ChartData data, _) => data.day,
+      measureFn: (ChartData data, _) => data.value,
+      data: _deceduti,
+    );
+
+    return [_totaliSeries, _positiviSeries, _guaritiSeries, _decedutiSeries];
   }
 
-  charts.LineChart _getChart(List<charts.Series> series) {
+  Widget _getChart(List<charts.Series> series) {
     return new charts.LineChart(series, animate: true);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:covid19/model/covid.dart';
 import 'package:covid19/repository/repository.dart';
 import 'package:covid19/utils/util.dart';
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 
 class All extends StatefulWidget {
@@ -44,20 +45,88 @@ class _ListState extends State<All> {
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
-          child: Center(child: _getListItem(data[index])),
+          child: Center(child: _getItem(data[index])),
         );
       },
       separatorBuilder: (BuildContext context, int index) => const Divider(),
     );
   }
 
-  Column _getListItem(Covid covid) {
-    return Column(children: <Widget>[
-      Text('Data: ${covid.data.formatDate}'),
-      Text('Casi totali: ${covid.totaleCasi}'),
-      Text('Totale positivi: ${covid.totalePositivi}'),
-      Text('Totale deceduti: ${covid.deceduti}'),
-      Text('Totale guariti: ${covid.dimessiGuariti}'),
-    ]);
+  Widget _getItem(Covid covid) {
+    return ExpandablePanel(
+        header: Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text(
+              covid.data.formatDate(StringExtension.DATE_FORMAT_TEXT),
+              style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold),
+            )),
+        expanded: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                child: RichText(
+                    text: TextSpan(
+                        text: 'Casi totali: ',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: '${covid.totaleCasi}',
+                          style:
+                              TextStyle(color: Colors.blueGrey, fontSize: 16))
+                    ])),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                child: RichText(
+                    text: TextSpan(
+                        text: 'Totale positivi: ',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: '${covid.totalePositivi}',
+                          style: TextStyle(color: Colors.blue, fontSize: 16))
+                    ])),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                child: RichText(
+                    text: TextSpan(
+                        text: 'Totale guariti: ',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: '${covid.dimessiGuariti}',
+                          style: TextStyle(color: Colors.green, fontSize: 16))
+                    ])),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0),
+                child: RichText(
+                    text: TextSpan(
+                        text: 'Totale deceduti: ',
+                        style: TextStyle(
+                            color: Colors.black87,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                        children: <TextSpan>[
+                      TextSpan(
+                          text: '${covid.deceduti}',
+                          style: TextStyle(color: Colors.red, fontSize: 16))
+                    ])),
+              )
+            ]));
   }
 }

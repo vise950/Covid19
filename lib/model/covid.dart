@@ -15,6 +15,7 @@ class Covid {
   int deceduti;
   int totaleCasi;
   int tamponi;
+  int casiTestati;
 
   Covid(
       {@required this.id,
@@ -29,7 +30,8 @@ class Covid {
       @required this.dimessiGuariti,
       @required this.deceduti,
       @required this.totaleCasi,
-      @required this.tamponi});
+      @required this.tamponi,
+      @required this.casiTestati});
 
   // used for parse json response
   factory Covid.fromJson(Map<String, dynamic> map) {
@@ -47,6 +49,7 @@ class Covid {
       deceduti: map['deceduti'],
       totaleCasi: map['totale_casi'],
       tamponi: map['tamponi'],
+      casiTestati: map['casi_testati'],
     );
   }
 
@@ -65,6 +68,7 @@ class Covid {
       deceduti: map['deceduti'],
       totaleCasi: map['totale_casi'],
       tamponi: map['tamponi'],
+      casiTestati: map['casi_testati'],
     );
   }
 
@@ -83,6 +87,7 @@ class Covid {
       'deceduti': deceduti,
       'totale_casi': totaleCasi,
       'tamponi': tamponi,
+      'casi_testati': casiTestati,
     };
   }
 }

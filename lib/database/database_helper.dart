@@ -33,18 +33,19 @@ class DatabaseHelper {
       await txn.execute('''
           CREATE TABLE $_tableName (
             id INTEGER PRIMARY KEY,
-            data TEXT NOT NULL,
-            ricoverati_con_sintomi INTEGER NOT NULL,
-            terapia_intensiva INTEGER NOT NULL,
-            totale_ospedalizzati INTEGER NOT NULL,
-            isolamento_domiciliare INTEGER NOT NULL,
-            totale_positivi INTEGER NOT NULL,
-            variazione_totale_positivi INTEGER NOT NULL,
-            nuovi_positivi INTEGER NOT NULL,
-            dimessi_guariti INTEGER NOT NULL,
-            deceduti INTEGER NOT NULL,
-            totale_casi INTEGER NOT NULL,
-            tamponi INTEGER NOT NULL
+            data TEXT,
+            ricoverati_con_sintomi INTEGER,
+            terapia_intensiva INTEGER,
+            totale_ospedalizzati INTEGER,
+            isolamento_domiciliare INTEGER,
+            totale_positivi INTEGER,
+            variazione_totale_positivi INTEGER,
+            nuovi_positivi INTEGER,
+            dimessi_guariti INTEGER,
+            deceduti INTEGER,
+            totale_casi INTEGER,
+            tamponi INTEGER,
+            casi_testati INTEGER
           )
           ''');
     });
