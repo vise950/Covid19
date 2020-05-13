@@ -43,10 +43,10 @@ class _ChartsState extends State<Charts> {
   }
 
   List<charts.Series<ChartData, int>> _createChartData(List<Covid> data) {
-    List<ChartData> _totali = new List();
-    List<ChartData> _positivi = new List();
-    List<ChartData> _guariti = new List();
-    List<ChartData> _deceduti = new List();
+    List<ChartData> _totali = [];
+    List<ChartData> _positivi = [];
+    List<ChartData> _guariti = [];
+    List<ChartData> _deceduti = [];
 
     charts.Series<ChartData, int> _totaliSeries;
     charts.Series<ChartData, int> _positiviSeries;

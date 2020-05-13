@@ -19,7 +19,7 @@ class Util {
 
   static Future<bool> refreshNeeded() async {
     var lastUpdate = await PreferencesHelper.getLastUpdate();
-    lastUpdate = lastUpdate.add(Duration(hours: 12));
+    lastUpdate = lastUpdate.add(Duration(hours: 4));
     if (lastUpdate != null) {
       var now = DateTime.now();
       var update = now.isAfter(lastUpdate);

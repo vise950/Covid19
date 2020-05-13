@@ -3,3 +3,4 @@ Miglioramenti:
 - ottimizzazione operazioni background (api,db)
 - rimuovere testi scolpiti nel codice
 - migliorare UI
+- utilizzare un pattern (mvvm,bloc,...)
