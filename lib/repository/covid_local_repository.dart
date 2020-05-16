@@ -1,7 +1,7 @@
 import 'package:covid19/database/database_helper.dart';
 import 'package:covid19/model/covid.dart';
 
-class LocalRepository {
+class CovidLocalRepository {
   static Future<Covid> getDailyData() async {
     return DatabaseHelper.instance.queryFirst();
   }

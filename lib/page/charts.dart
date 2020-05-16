@@ -1,45 +1,30 @@
+import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:covid19/base/base_stateless_widget.dart';
+import 'package:covid19/bloc/covid_bloc.dart';
+import 'package:covid19/bloc/covid_state.dart';
 import 'package:covid19/model/chart_data.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/repository/repository.dart';
 import 'package:flutter/material.dart';
-import 'package:charts_flutter/flutter.dart' as charts;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Charts extends StatefulWidget {
-  Charts({Key key}) : super(key: key);
-
-  @override
-  _ChartsState createState() => _ChartsState();
-}
-
-class _ChartsState extends State<Charts> {
-  Future<List<Covid>> _allData;
-
-  @override
-  void initState() {
-    super.initState();
-    _allData = Repository.getAllData();
-  }
-
+class Charts extends BaseStatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Center _body = Center(child: _retrieveData());
-    return Scaffold(body: _body);
-  }
-
-  FutureBuilder _retrieveData() {
-    return FutureBuilder<List<Covid>>(
-      future: _allData,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          var series = _createChartData(snapshot.data);
-          return _getChart(series);
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+    Container _body = Container(child: BlocBuilder<CovidBloc, CovidState>(
+      builder: (context, state) {
+        if (state is CovidEmpty) {
+          return buildEmpty();
+        } else if (state is CovidLoading) {
+          return buildLoading();
+        } else if (state is CovidLoaded) {
+          return _getChart(_createChartData(state.covid));
+        } else if (state is CovidError) {
+          return buildError();
         }
-        // By default, show a loading spinner.
-        return CircularProgressIndicator();
       },
-    );
+    ));
+
+    return Scaffold(body: _body);
   }
 
   List<charts.Series<ChartData, int>> _createChartData(List<Covid> data) {
@@ -54,11 +39,11 @@ class _ChartsState extends State<Charts> {
     charts.Series<ChartData, int> _decedutiSeries;
 
     data.asMap().forEach((index, value) => {
-          _totali.add(ChartData(index, value.totaleCasi)),
-          _positivi.add(ChartData(index, value.totalePositivi)),
-          _guariti.add(ChartData(index, value.dimessiGuariti)),
-          _deceduti.add(ChartData(index, value.deceduti))
-        });
+      _totali.add(ChartData(index, value.totaleCasi)),
+      _positivi.add(ChartData(index, value.totalePositivi)),
+      _guariti.add(ChartData(index, value.dimessiGuariti)),
+      _deceduti.add(ChartData(index, value.deceduti))
+    });
 
     _totaliSeries = new charts.Series<ChartData, int>(
       id: 'Totali',

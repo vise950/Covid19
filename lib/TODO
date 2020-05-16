@@ -4,3 +4,4 @@ Miglioramenti:
 - rimuovere testi scolpiti nel codice
 - migliorare UI
 - utilizzare un pattern (mvvm,bloc,...)
+- pull to refresh o toolbar icon

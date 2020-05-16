@@ -1,43 +1,29 @@
+import 'package:covid19/base/base_stateless_widget.dart';
+import 'package:covid19/bloc/covid_bloc.dart';
+import 'package:covid19/bloc/covid_state.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/repository/repository.dart';
-import 'package:covid19/utils/util.dart';
+import 'package:covid19/utils/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Today extends StatefulWidget {
-  Today({Key key}) : super(key: key);
-
-  @override
-  _TodayState createState() => _TodayState();
-}
-
-class _TodayState extends State<Today> {
-  Future<Covid> _dailyData;
-
-  @override
-  void initState() {
-    super.initState();
-    _dailyData = Repository.getDailyData();
-  }
-
+class Today extends BaseStatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Center _body = Center(child: _retrieveData());
-    return Scaffold(body: _body);
-  }
-
-  FutureBuilder _retrieveData() {
-    return FutureBuilder<Covid>(
-      future: _dailyData,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return _getDailyDataBody(snapshot.data);
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+    Container _body = Container(child: BlocBuilder<CovidBloc, CovidState>(
+      builder: (context, state) {
+        if (state is CovidEmpty) {
+          return buildEmpty();
+        } else if (state is CovidLoading) {
+          return buildLoading();
+        } else if (state is CovidLoaded) {
+          return _getDailyDataBody(state.covid.last);
+        } else if (state is CovidError) {
+          return buildError();
         }
-        // By default, show a loading spinner.
-        return CircularProgressIndicator();
       },
-    );
+    ));
+
+    return Scaffold(body: _body);
   }
 
   Widget _getDailyDataBody(Covid covid) {

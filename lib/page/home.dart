@@ -1,8 +1,11 @@
+import 'package:covid19/bloc/covid_bloc.dart';
+import 'package:covid19/bloc/covid_event.dart';
+import 'package:covid19/database/database_helper.dart';
 import 'package:covid19/page/all.dart';
 import 'package:covid19/page/charts.dart';
 import 'package:covid19/page/today.dart';
-import 'package:covid19/database/database_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -17,6 +20,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    fetchData(context);
+
     AppBar _appBar = AppBar(title: Text("Covid 19"));
     BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
       BottomNavigationBarItem(
@@ -44,6 +49,12 @@ class _HomeState extends State<Home> {
   void dispose() {
     super.dispose();
     DatabaseHelper.instance.close();
+  }
+
+  void fetchData(BuildContext context) {
+    // ignore: close_sinks
+    final covidBloc = BlocProvider.of<CovidBloc>(context);
+    covidBloc.add(FetchData());
   }
 
   void _onItemTapped(int index) {

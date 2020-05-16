@@ -1,4 +1,4 @@
-import 'package:covid19/utils/util.dart';
+import 'package:covid19/utils/extension.dart';
 import 'package:flutter/foundation.dart';
 
 class Covid {

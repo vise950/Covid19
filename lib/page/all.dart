@@ -1,43 +1,31 @@
+import 'package:covid19/base/base_stateless_widget.dart';
+import 'package:covid19/bloc/covid_bloc.dart';
+import 'package:covid19/bloc/covid_state.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/repository/repository.dart';
-import 'package:covid19/utils/util.dart';
+import 'package:covid19/utils/extension.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class All extends StatefulWidget {
-  All({Key key}) : super(key: key);
-
-  @override
-  _ListState createState() => _ListState();
-}
-
-class _ListState extends State<All> {
-  Future<List<Covid>> _allData;
-
-  @override
-  void initState() {
-    super.initState();
-    _allData = Repository.getAllData();
-  }
+class All extends BaseStatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Center _body = Center(child: _retrieveData());
-    return Scaffold(body: _body);
-  }
-
-  FutureBuilder _retrieveData() {
-    return FutureBuilder<List<Covid>>(
-      future: _allData,
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return _getAllDataBody(snapshot.data.reverse());
-        } else if (snapshot.hasError) {
-          return Text("${snapshot.error}");
+    Container _body = Container(child: BlocBuilder<CovidBloc, CovidState>(
+      builder: (context, state) {
+        if (state is CovidEmpty) {
+          return buildEmpty();
+        } else if (state is CovidLoading) {
+          return buildLoading();
+        } else if (state is CovidLoaded) {
+          return _getAllDataBody(state.covid.reverse());
+        } else if (state is CovidError) {
+          return buildError();
         }
-        return CircularProgressIndicator();
       },
-    );
+    ));
+
+    return Scaffold(body: _body);
   }
 
   ListView _getAllDataBody(List<Covid> data) {
