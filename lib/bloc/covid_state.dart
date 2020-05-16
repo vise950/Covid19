@@ -1,4 +1,5 @@
 import 'package:covid19/model/covid.dart';
+import 'package:covid19/model/network_error.dart';
 import 'package:flutter/foundation.dart';
 
 abstract class CovidState {
@@ -15,4 +16,8 @@ class CovidLoaded extends CovidState {
   const CovidLoaded({@required this.covid}) : assert(covid != null);
 }
 
-class CovidError extends CovidState {}
+class CovidError extends CovidState {
+  final NetworkError error;
+
+  const CovidError({this.error}) : assert(error != null);
+}

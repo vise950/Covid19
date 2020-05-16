@@ -18,7 +18,7 @@ class Today extends BaseStatelessWidget {
         } else if (state is CovidLoaded) {
           return _getDailyDataBody(state.covid.last);
         } else if (state is CovidError) {
-          return buildError();
+          return buildError(state.error);
         }
       },
     ));

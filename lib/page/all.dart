@@ -20,7 +20,7 @@ class All extends BaseStatelessWidget {
         } else if (state is CovidLoaded) {
           return _getAllDataBody(state.covid.reverse());
         } else if (state is CovidError) {
-          return buildError();
+          return buildError(state.error);
         }
       },
     ));

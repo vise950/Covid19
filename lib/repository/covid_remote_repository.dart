@@ -1,5 +1,5 @@
-import 'package:covid19/database/database_helper.dart';
 import 'package:covid19/model/covid.dart';
+import 'package:covid19/model/network_error.dart';
 import 'package:covid19/utils/network_util.dart';
 import 'package:covid19/utils/util.dart';
 import 'package:flutter/foundation.dart';
@@ -24,7 +24,8 @@ class CovidRemoteRepository {
   Future<List<Covid>> fetchData() async {
     final response = await this.covidApiClient.getAllData();
     if (response.statusCode != 200) {
-      throw NetworkError();
+      throw NetworkException(
+          error: NetworkError(response.statusCode, response.reasonPhrase));
     }
     return Util.parseData(response.body);
   }

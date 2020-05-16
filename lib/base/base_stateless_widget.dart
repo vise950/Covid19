@@ -1,3 +1,4 @@
+import 'package:covid19/model/network_error.dart';
 import 'package:flutter/material.dart';
 
 abstract class BaseStatelessWidget extends StatelessWidget{
@@ -8,9 +9,10 @@ abstract class BaseStatelessWidget extends StatelessWidget{
     );
   }
 
-  Widget buildError() {
+  Widget buildError(NetworkError networkError) {
     return Center(
-      child: Text("Error"),
+      child: Text(
+          "Error\nstatus code: ${networkError.statusCode}\nmessage: ${networkError.message}"),
     );
   }
 

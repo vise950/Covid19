@@ -19,7 +19,7 @@ class Charts extends BaseStatelessWidget {
         } else if (state is CovidLoaded) {
           return _getChart(_createChartData(state.covid));
         } else if (state is CovidError) {
-          return buildError();
+          return buildError(state.error);
         }
       },
     ));
