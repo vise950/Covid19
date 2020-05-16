@@ -1,6 +1,6 @@
 import 'package:covid19/model/covid.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
   static final _databaseName = "Covid.db";

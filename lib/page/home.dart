@@ -22,7 +22,17 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     fetchData(context);
 
-    AppBar _appBar = AppBar(title: Text("Covid 19"));
+    AppBar _appBar = AppBar(
+      title: Text("Covid 19"),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () {
+            fetchData(context, forced: true);
+          },
+        ),
+      ],
+    );
     BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
       BottomNavigationBarItem(
         icon: new Icon(Icons.today),
@@ -51,10 +61,10 @@ class _HomeState extends State<Home> {
     DatabaseHelper.instance.close();
   }
 
-  void fetchData(BuildContext context) {
+  void fetchData(BuildContext context, {bool forced = false}) {
     // ignore: close_sinks
     final covidBloc = BlocProvider.of<CovidBloc>(context);
-    covidBloc.add(FetchData());
+    covidBloc.add(FetchData(forced: forced));
   }
 
   void _onItemTapped(int index) {

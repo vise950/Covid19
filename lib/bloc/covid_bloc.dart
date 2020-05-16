@@ -19,7 +19,7 @@ class CovidBloc extends Bloc<CovidEvent, CovidState> {
     if (event is FetchData) {
       yield CovidLoading();
       try {
-        final List<Covid> data = await covidRepository.getData();
+        final List<Covid> data = await covidRepository.getData(event.forced);
         yield CovidLoaded(covid: data);
       } on NetworkException catch (e) {
         yield CovidError(error: e.error);

@@ -6,34 +6,26 @@ import 'package:covid19/utils/util.dart';
 import 'package:flutter/foundation.dart';
 
 class CovidRepository {
-//  static Future<Covid> getDailyData() async {
-//    var isConnected = await Util.isConnected();
-//    var updateNeeded = await Util.refreshNeeded();
-//    if (isConnected && updateNeeded) {
-//      PreferencesHelper.setLastUpdate();
-//      var data = await RemoteRepository.getAllData();
-//      return data.last;
-//    } else {
-//      return LocalRepository.getDailyData();
-//    }
-//  }
-//
-//  static Future<List<Covid>> getAllData() async {
-//    var isConnected = await Util.isConnected();
-//    var updateNeeded = await Util.refreshNeeded();
-//    if (isConnected && updateNeeded) {
-//      PreferencesHelper.setLastUpdate();
-//      return RemoteRepository.getAllData();
-//    } else {
-//      return LocalRepository.getAllData();
-//    }
-//  }
 
   final CovidRemoteRepository remoteRepository;
+  final CovidLocalRepository localRepository;
 
-  CovidRepository({@required this.remoteRepository}) : assert(remoteRepository != null);
+  CovidRepository({@required this.remoteRepository, this.localRepository})
+      : assert(remoteRepository != null && localRepository != null);
 
-   Future<List<Covid>> getData() {
-     return remoteRepository.fetchData();
-   }
+  Future<List<Covid>> getData(bool forced) async {
+    var isConnected = await Util.isConnected();
+    var updateNeeded = await Util.refreshNeeded();
+
+    if (forced) {
+      return remoteRepository.fetchData();
+    }
+
+    if (isConnected && updateNeeded) {
+      PreferencesHelper.setLastUpdate();
+      return remoteRepository.fetchData();
+    } else {
+      return localRepository.getAllData();
+    }
+  }
 }

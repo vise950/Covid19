@@ -19,5 +19,5 @@ class CovidLoaded extends CovidState {
 class CovidError extends CovidState {
   final NetworkError error;
 
-  const CovidError({this.error}) : assert(error != null);
+  const CovidError({this.error});
 }

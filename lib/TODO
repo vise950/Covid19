@@ -1,7 +1,4 @@
 Miglioramenti:
-- fetch dati nella "home" e recupero degli stessi dal db per le pagine di visualizzazione
 - ottimizzazione operazioni background (api,db)
 - rimuovere testi scolpiti nel codice
 - migliorare UI
-- pull to refresh o toolbar icon
-- ogni volta che si cambia sezione viene rifatto il fetch dei dati
