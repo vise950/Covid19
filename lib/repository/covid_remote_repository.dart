@@ -1,4 +1,4 @@
-import 'package:covid19/database/database_helper.dart';
+import 'package:covid19/dao/covid_dao.dart';
 import 'package:covid19/model/covid.dart';
 import 'package:covid19/model/network_error.dart';
 import 'package:covid19/utils/network_util.dart';
@@ -19,7 +19,8 @@ class CovidRemoteRepository {
           error: NetworkError(response.statusCode, response.reasonPhrase));
     }
     var data = Util.parseData(response.body);
-    DatabaseHelper.instance.insertAll(data);
+//    DatabaseHelper.instance.insertAll(data);
+    CovidDao().insertAll(data);
     return data;
   }
 }

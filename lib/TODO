@@ -2,3 +2,5 @@ Miglioramenti:
 - ottimizzazione operazioni background (api,db)
 - rimuovere testi scolpiti nel codice
 - migliorare UI
+- grafico (legenda, scroll, zoom,...)
+- singleton base class

@@ -1,6 +1,7 @@
 import 'package:covid19/bloc/covid_bloc.dart';
 import 'package:covid19/bloc/covid_event.dart';
 import 'package:covid19/database/database_helper.dart';
+import 'package:covid19/database/covid_database.dart';
 import 'package:covid19/page/all.dart';
 import 'package:covid19/page/charts.dart';
 import 'package:covid19/page/today.dart';
@@ -58,7 +59,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     super.dispose();
-    DatabaseHelper.instance.close();
+    CovidDatabase().close();
   }
 
   void fetchData(BuildContext context, {bool forced = false}) {

@@ -57,7 +57,7 @@ class DatabaseHelper {
 
   Future insert(Covid row) async {
     Database db = await database;
-    await db.transaction((txn) async {
+    return await db.transaction((txn) async {
       await txn.insert(_tableName, row.toMap(),
           conflictAlgorithm: ConflictAlgorithm.replace);
     });

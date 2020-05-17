@@ -17,6 +17,7 @@ class CovidRepository {
     var isConnected = await Util.isConnected();
     var updateNeeded = await Util.refreshNeeded();
 
+    //fixme improve
     if (forced) {
       return remoteRepository.fetchData();
     }
