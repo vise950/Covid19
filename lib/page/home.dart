@@ -1,6 +1,5 @@
 import 'package:covid19/bloc/covid_bloc.dart';
 import 'package:covid19/bloc/covid_event.dart';
-import 'package:covid19/database/database_helper.dart';
 import 'package:covid19/database/covid_database.dart';
 import 'package:covid19/page/all.dart';
 import 'package:covid19/page/charts.dart';

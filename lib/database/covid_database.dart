@@ -1,6 +1,14 @@
 import 'package:covid19/base/base_database.dart';
 
 class CovidDatabase extends BaseDatabase {
+
+  //Singleton instance
+  CovidDatabase._privateConstructor();
+  static final CovidDatabase _instance = CovidDatabase._privateConstructor();
+  factory CovidDatabase() {
+    return _instance;
+  }
+
   final tableName = 'covid';
 
   @override

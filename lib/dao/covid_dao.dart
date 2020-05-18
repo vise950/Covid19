@@ -3,11 +3,11 @@ import 'package:covid19/database/covid_database.dart';
 import 'package:covid19/model/covid.dart';
 import 'package:sqflite/sqflite.dart';
 
-class CovidDao implements BaseDao<Covid> {
+class CovidDao  implements BaseDao<Covid> {
+
+  //Singleton instance
   CovidDao._privateConstructor();
-
   static final CovidDao _instance = CovidDao._privateConstructor();
-
   factory CovidDao() {
     return _instance;
   }
