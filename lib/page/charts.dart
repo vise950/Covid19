@@ -27,6 +27,13 @@ class Charts extends BaseStatelessWidget {
     return Scaffold(body: _body);
   }
 
+  Widget _getChart(List<charts.Series> series) {
+    return new charts.LineChart(series, animate: true, behaviors: [
+      new charts.SeriesLegend(),
+      new charts.PanAndZoomBehavior()
+    ]);
+  }
+
   List<charts.Series<ChartData, int>> _createChartData(List<Covid> data) {
     List<ChartData> _totali = [];
     List<ChartData> _positivi = [];
@@ -78,9 +85,5 @@ class Charts extends BaseStatelessWidget {
     );
 
     return [_totaliSeries, _positiviSeries, _guaritiSeries, _decedutiSeries];
-  }
-
-  Widget _getChart(List<charts.Series> series) {
-    return new charts.LineChart(series, animate: true);
   }
 }
