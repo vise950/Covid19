@@ -48,8 +48,8 @@ class Charts extends BaseStatelessWidget {
     data.asMap().forEach((index, value) => {
       _totali.add(ChartData(index, value.totaleCasi)),
       _positivi.add(ChartData(index, value.totalePositivi)),
-      _guariti.add(ChartData(index, value.dimessiGuariti)),
-      _deceduti.add(ChartData(index, value.deceduti))
+      _guariti.add(ChartData(index, value.totaleGuariti)),
+      _deceduti.add(ChartData(index, value.totaleDeceduti))
     });
 
     _totaliSeries = new charts.Series<ChartData, int>(

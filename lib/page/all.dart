@@ -61,8 +61,8 @@ class All extends BaseStatelessWidget {
         children: <Widget>[
           _getRow("Casi totali: ", covid.totaleCasi, Colors.blueGrey),
           _getRow("Totale positivi: ", covid.totalePositivi, Colors.blue),
-          _getRow("Totale guariti: ", covid.dimessiGuariti, Colors.green),
-          _getRow("Totale deceduti: ", covid.deceduti, Colors.red),
+          _getRow("Totale guariti: ", covid.totaleGuariti, Colors.green),
+          _getRow("Totale deceduti: ", covid.totaleDeceduti, Colors.red),
         ]);
   }
 

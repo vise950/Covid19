@@ -20,6 +20,7 @@ class Today extends BaseStatelessWidget {
         } else if (state is CovidError) {
           return buildError(state.error);
         }
+        return null;
       },
     ));
 
@@ -39,40 +40,14 @@ class Today extends BaseStatelessWidget {
                     isFull: true),
                 _getCard("Totale positivi", covid.totalePositivi, Colors.blue,
                     isFull: true),
-                _getCard("Totale guariti", covid.dimessiGuariti, Colors.green,
+                _getCard("Totale guariti", covid.totaleGuariti, Colors.green,
                     isFull: true),
-                _getCard("Totale deceduti", covid.deceduti, Colors.red,
+                _getCard("Totale deceduti", covid.totaleDeceduti, Colors.red,
                     isFull: true),
+                _getCard("Nuovi positivi", covid.nuoviPositivi, Colors.yellow,
+                    isFull: true)
               ],
             ),
-          ),
-          SliverGrid.count(
-            crossAxisSpacing: 10,
-            mainAxisSpacing: 10,
-            crossAxisCount: 2,
-            children: <Widget>[
-              _getCard("Nuovi positivi", covid.nuoviPositivi, Colors.yellow,
-                  isLeft: true),
-              _getCard("Variazione positivi", covid.variazionePositivi,
-                  Colors.yellow,
-                  isRight: true),
-              _getCard("Totale ospedalizzati", covid.totaleOspedalizzati,
-                  Colors.amber,
-                  isLeft: true),
-              _getCard("Ricoverati con sintomi", covid.ricoveratiConSintomi,
-                  Colors.amber,
-                  isRight: true),
-              _getCard(
-                  "In terapia intensiva", covid.terapiaIntensiva, Colors.orange,
-                  isLeft: true),
-              _getCard("In isolamento domiciliare", covid.isolamentoDomiciliare,
-                  Colors.orange,
-                  isRight: true),
-              _getCard("Tamponi", covid.tamponi, Colors.deepOrange,
-                  isLeft: true),
-              _getCard("Casi testati", covid.casiTestati, Colors.deepOrange,
-                  isRight: true),
-            ],
           ),
           SliverToBoxAdapter(
               child: Text(
