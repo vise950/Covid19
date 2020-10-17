@@ -4,6 +4,7 @@ import 'package:covid19/database/covid_database.dart';
 import 'package:covid19/page/all.dart';
 import 'package:covid19/page/charts.dart';
 import 'package:covid19/page/today.dart';
+import 'package:covid19/utils/enum.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,7 +65,7 @@ class _HomeState extends State<Home> {
   void fetchData(BuildContext context, {bool forced = false}) {
     // ignore: close_sinks
     final covidBloc = BlocProvider.of<CovidBloc>(context);
-    covidBloc.add(FetchData(forced: forced));
+    covidBloc.add(FetchData(forced: forced, type: DataType.regional));
   }
 
   void _onItemTapped(int index) {

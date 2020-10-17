@@ -1,5 +1,6 @@
 import 'package:covid19/dao/covid_dao.dart';
 import 'package:covid19/model/covid.dart';
+import 'package:covid19/model/covid_region.dart';
 import 'package:covid19/model/network_error.dart';
 import 'package:covid19/utils/network_util.dart';
 import 'package:covid19/utils/util.dart';
@@ -12,14 +13,24 @@ class CovidRemoteRepository {
 
   CovidRemoteRepository({@required this.covidApiClient}) : assert(covidApiClient != null);
 
-  Future<List<Covid>> fetchData() async {
-    final response = await this.covidApiClient.getAllData();
+  Future<List<Covid>> fetchNationDataData() async {
+    final response = await this.covidApiClient.getNationData();
     if (response.statusCode != 200) {
       throw NetworkException(
           error: NetworkError(response.statusCode, response.reasonPhrase));
     }
-    var data = Util.parseData(response.body);
-//    DatabaseHelper.instance.insertAll(data);
+    var data = Util.parseNationalData(response.body);
+    CovidDao().insertAll(data);
+    return data;
+  }
+
+  Future<List<CovidRegion>> fetchRegionalData() async {
+    final response = await this.covidApiClient.getRegionalData();
+    if (response.statusCode != 200) {
+      throw NetworkException(
+          error: NetworkError(response.statusCode, response.reasonPhrase));
+    }
+    var data = Util.parseRegionalData(response.body);
     CovidDao().insertAll(data);
     return data;
   }

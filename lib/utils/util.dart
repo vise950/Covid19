@@ -2,12 +2,18 @@ import 'dart:convert';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:covid19/model/covid.dart';
+import 'package:covid19/model/covid_region.dart';
 import 'package:covid19/utils/preferences_helper.dart';
 
 class Util {
-  static List<Covid> parseData(String responseBody) {
+  static List<Covid> parseNationalData(String responseBody) {
     final data = json.decode(responseBody).cast<Map<String, dynamic>>();
     return data.map<Covid>((json) => Covid.fromJson(json)).toList();
+  }
+
+  static List<Covid> parseRegionalData(String responseBody) {
+    final data = json.decode(responseBody).cast<Map<String, dynamic>>();
+    return data.map<CovidRegion>((json) => CovidRegion.fromJson(json)).toList();
   }
 
   static Future<bool> isConnected() async {

@@ -20,20 +20,15 @@ class CovidDatabase extends BaseDatabase {
   @override
   String get databaseCreateQuery => '''
           CREATE TABLE $tableName (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             data TEXT,
-            ricoverati_con_sintomi INTEGER,
-            terapia_intensiva INTEGER,
-            totale_ospedalizzati INTEGER,
-            isolamento_domiciliare INTEGER,
+            totale_casi INTEGER,
             totale_positivi INTEGER,
-            variazione_totale_positivi INTEGER,
-            nuovi_positivi INTEGER,
             dimessi_guariti INTEGER,
             deceduti INTEGER,
-            totale_casi INTEGER,
-            tamponi INTEGER,
-            casi_testati INTEGER
+            nuovi_positivi INTEGER,
+            codice_regione INTEGER,
+            denominazione_regione TEXT
           )
           ''';
 }

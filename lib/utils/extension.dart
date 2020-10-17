@@ -21,12 +21,4 @@ extension StringExtension on String {
       return DateFormat(pattern).format(_dateTime);
     }
   }
-
-  get toID {
-    if (this != null) {
-      DateTime _dateTime = DateTime.parse(this);
-      var id = DateFormat(DATE_FORMAT_FOR_ID).format(_dateTime);
-      return int.tryParse(id);
-    }
-  }
 }
