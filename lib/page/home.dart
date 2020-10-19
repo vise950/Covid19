@@ -65,7 +65,7 @@ class _HomeState extends State<Home> {
   void fetchData(BuildContext context, {bool forced = false}) {
     // ignore: close_sinks
     final covidBloc = BlocProvider.of<CovidBloc>(context);
-    covidBloc.add(FetchData(forced: forced, type: DataType.regional));
+    covidBloc.add(FetchData(forced: forced, type: DataType.national));
   }
 
   void _onItemTapped(int index) {
