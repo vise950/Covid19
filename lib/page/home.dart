@@ -16,43 +16,13 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int _selectedIndex = 0;
-  final List<Widget> _children = [Today(), All(), Charts()];
-
   @override
   Widget build(BuildContext context) {
     fetchData(context);
 
-    AppBar _appBar = AppBar(
-      title: Text("Covid 19"),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(Icons.refresh),
-          onPressed: () {
-            fetchData(context, forced: true);
-          },
-        ),
-      ],
-    );
-    BottomNavigationBar _bottomNavigationBar = BottomNavigationBar(items: [
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.today),
-        title: new Text('Oggi'),
-      ),
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.list),
-        title: new Text('Lista'),
-      ),
-      BottomNavigationBarItem(
-        icon: new Icon(Icons.pie_chart),
-        title: new Text('Grafici'),
-      ),
-    ], currentIndex: _selectedIndex, onTap: _onItemTapped);
-
     return Scaffold(
-      appBar: _appBar,
-      body: _children.elementAt(_selectedIndex),
-      bottomNavigationBar: _bottomNavigationBar,
+      body: Today(),
+      backgroundColor: Colors.white70,
     );
   }
 
@@ -66,11 +36,5 @@ class _HomeState extends State<Home> {
     // ignore: close_sinks
     final covidBloc = BlocProvider.of<CovidBloc>(context);
     covidBloc.add(FetchData(forced: forced, type: DataType.national));
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
   }
 }

@@ -2,7 +2,6 @@ import 'package:covid19/base/base_stateless_widget.dart';
 import 'package:covid19/bloc/covid_bloc.dart';
 import 'package:covid19/bloc/covid_state.dart';
 import 'package:covid19/model/covid.dart';
-import 'package:covid19/utils/extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,7 +15,7 @@ class Today extends BaseStatelessWidget {
         } else if (state is CovidLoading) {
           return buildLoading();
         } else if (state is CovidLoaded) {
-          return _getDailyDataBody(state.covid.last);
+          return _getDailyDataBody(context, state.covid.last);
         } else if (state is CovidError) {
           return buildError(state.error);
         }
@@ -24,71 +23,67 @@ class Today extends BaseStatelessWidget {
       },
     ));
 
-    return Scaffold(body: _body);
+    return Scaffold(body: _body, backgroundColor: Colors.white70);
   }
 
-  Widget _getDailyDataBody(Covid covid) {
+  Widget _getDailyDataBody(BuildContext context, Covid covid) {
     return Padding(
-      padding: EdgeInsets.all(8.0),
-      child: CustomScrollView(
-        primary: false,
-        slivers: <Widget>[
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                _getCard("Casi totali", covid.totaleCasi, Colors.blueGrey,
-                    isFull: true),
-                _getCard("Totale positivi", covid.totalePositivi, Colors.blue,
-                    isFull: true),
-                _getCard("Totale guariti", covid.totaleGuariti, Colors.green,
-                    isFull: true),
-                _getCard("Totale deceduti", covid.totaleDeceduti, Colors.red,
-                    isFull: true),
-                _getCard("Nuovi positivi", covid.nuoviPositivi, Colors.yellow,
-                    isFull: true)
-              ],
-            ),
-          ),
-          SliverToBoxAdapter(
-              child: Text(
-                  "Ultimo aggiornamento: ${covid.data.formatDate(StringExtension.DATE_FORMAT_WITH_HOUR)}",
-                  textAlign: TextAlign.end))
-        ],
+        padding: EdgeInsets.all(8.0),
+        child: Column(
+          children: [SizedBox(height: 160), _getCards(context, covid)],
+        ));
+  }
+
+  Widget _getCards(BuildContext context, Covid covid) {
+    final double _height = MediaQuery.of(context).size.height;
+    return Column(children: [
+      SizedBox(
+        height: 180,
+        child: GridView.count(
+          crossAxisCount: 2,
+          childAspectRatio: _height / 600,
+          shrinkWrap: true,
+          children: <Widget>[
+            _getCard("AAAA", "10000", Colors.blue, context),
+            _getCard("AAAA", "10000", Colors.blue, context),
+          ],
+        ),
       ),
-    );
+      SizedBox(
+        height: 180,
+        child: GridView.count(
+          crossAxisCount: 3,
+          childAspectRatio: _height / 600,
+          shrinkWrap: true,
+          children: <Widget>[
+            _getCard("AAAA", "10000", Colors.blue, context),
+            _getCard("AAAA", "10000", Colors.blue, context),
+            _getCard("AAAA", "10000", Colors.blue, context),
+          ],
+        ),
+      ),
+    ]);
   }
 
-  Widget _getCard(String label, dynamic data, Color color,
-      {bool isFull = false, bool isLeft = false, bool isRight = false}) {
-    return Card(
-      elevation: 4,
-      color: color,
-      shape: _getCardShape(isFull, isLeft, isRight),
-      child: _getCardContainer(label, data),
-    );
+  Widget _getCard(
+      String label, dynamic data, Color color, BuildContext context) {
+    return Container(
+        width: 30,
+        child: Card(
+          elevation: 4,
+          color: color,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          // child: _getCardContainer(context, label, data),
+        ));
   }
 
-  ShapeBorder _getCardShape(bool isFull, bool isLeft, bool isRight) {
-    if (isFull) {
-      return RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(8)));
-    } else if (isLeft) {
-      return RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)));
-    } else if (isRight) {
-      return RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              topRight: Radius.circular(10), bottomRight: Radius.circular(10)));
-    } else {
-      return RoundedRectangleBorder();
-    }
-  }
-
-  Widget _getCardContainer(String label, data) {
+  Widget _getCardContainer(BuildContext context, String label, data) {
+    final _size = MediaQuery.of(context).size;
     return Container(
         margin: EdgeInsets.all(8.0),
-        height: 120,
+        height: 80,
+        width: _size.width / 2 - _size.width / 12,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -97,7 +92,7 @@ class Today extends BaseStatelessWidget {
                     color: Colors.black,
                     fontSize: 24,
                     fontWeight: FontWeight.bold)),
-            SizedBox(height: 30),
+            SizedBox(height: 10),
             Text("$data", style: TextStyle(color: Colors.black, fontSize: 30))
           ],
         ));
